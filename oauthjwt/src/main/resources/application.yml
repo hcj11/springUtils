@@ -1,0 +1,75 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# More information on profiles: http://www.jhipster.tech/profiles/
+# More information on configuration properties: http://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+# springboot 提供的日志,
+logging:
+    level:
+        ROOT: INFO
+#        spittr:  "refresh_token",
+#    file: my.log
+
+spring:
+#    profiles:
+#        active: StartUp
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
+
+    datasource:
+            type: com.zaxxer.hikari.HikariDataSource
+            url: jdbc:mysql://localhost:3306/reactApplication?useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password: root
+            hikari:
+                data-source-properties:
+                    cachePrepStmts: true
+                    prepStmtCacheSize: 250 # 待测试, 缓存 prepStmtCache
+                    prepStmtCacheSqlLimit: 2048  # 缓存 prepStmtCache
+                    useServerPrepStmts: true
+            driver-class-name: com.mysql.jdbc.Driver
+
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database: MYSQL
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      properties: # hibernate相关的 都没测, 多数据源的测试.
+          hibernate.id.new_generator_mappings: true
+          # update 会清除缓存?
+          hibernate.cache.use_second_level_cache: true
+          hibernate.cache.use_query_cache: true
+          hibernate.generate_statistics: false
+# 回调端点.
+security:
+      oauth2:
+        resource:
+            user-info-uri: http://localhost:8080/auth/user
+            jwt:
+              key-value: 1233421asdqf
+hcj:
+  signkey: 1233421asdqf
+
+server:
+    port: 8081
+    address: 0.0.0.0
+    servlet:
+      context-path: /api
+#    ssl:
+#      key-store: /home/hcj/ssl/keystore.p12
+#      key-store-password: 111111
+#      keyStoreType: PKCS12
+#      keyAlias: tomcat

@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>Reading List</title>
+  <link rel="stylesheet" th:href="@{../static/style.css}"/>
+</head>
+
+<body>
+
+<span>hello!!
+  <p th:text="${user}">12</p>
+</span>
+  <p>页面缓存,  通过thymeleaf 减少视图生成的cpu占用, 没有缓存时间一说吧,你要想修改,就重启服务?
+    并不是减少数据库查询啊, 只是减少刚才说的
+  </p>
+<!--<div sec:authorize="isAuthenticated()">-->
+  <!--hello-->
+  <!--<p sec:authentication="hasAnyRole("ADMIN","USER")">someone</p>-->
+<!--<p sec:authentication="principal.getPassword()">someone</p>-->
+<!--</div>-->
+
+<h2>user List</h2>
+<div id="header" th:include="page :: header"></div>
+<div th:if="${users.size() > 0}">
+  <tr  th:each="collect,iterStat : ${users}">
+    <th scope="row" th:text="${collect.id}">1</th>
+    <td th:text="${collect.id}">id</td>
+    <td th:text="${collect.login}">login</td>
+    <td th:text="${collect.password}">@password</td>
+    <td th:text="${collect.firstName}">firstName</td>
+    <td th:text="${collect.lastName}">lastName</td>
+    </br>
+  </tr>
+</div>
+
+<div th:if="${users.size() == 0}">
+  <p>You have no books in your book list</p>
+</div>
+
+<hr/>
+<h3>Add a bo</h3>
+<form method="POST" th:action="@{/management/user}">
+  <label  for="login">login:</label>
+  <input type="text" name="login" size="50"/><br/>
+  <label for="password">password:</label>
+  <input type="text" name="password" size="50"/><br/>
+  <label for="firstName">firstName:</label>
+  <input type="text" name="firstName" size="15"/><br/>
+  <label for="lastName">lastName:</label><br/>
+  <textarea name="lastName" cols="80" rows="5"></textarea><br/>
+  <input type="submit"/>
+</form>
+
+</body>
+</html>

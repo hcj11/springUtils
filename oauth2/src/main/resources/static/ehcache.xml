@@ -1,0 +1,6 @@
+<ehcache>
+  <cache name="userAccount1"
+    maxBytesLocalHeap="50m"
+    timeToLiveSeconds="100">
+  </cache>
+</ehcache>
